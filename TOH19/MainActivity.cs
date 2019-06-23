@@ -31,9 +31,9 @@ namespace TOH19
     public class MainActivity : AppCompatActivity
     {
         const int REQUEST_TAKE_PHOTO = 1;
-        const string subscriptionKey = "6024d7495a3b4635b0f9065f217933a3";
+        const string subscriptionKey = "";
         const string uriBase =
-            "https://eastus2.api.cognitive.microsoft.com/vision/v2.0/read/core/asyncBatchAnalyze";
+            "https://eastus2.api.cognitive.microsoft.com/vision/v2.0/read/core/asyncBatchAnalyze";z
         static TextView calOutput;
         
         
@@ -99,12 +99,12 @@ namespace TOH19
             if (requestCode == REQUEST_TAKE_PHOTO)
             {
                 //Toast.MakeText(Application.Context, "took a pic", ToastLength.Short).Show();
-                addToGallery();
+                addToGallery(); //after photo is created, function call to call API
             }
             
         }
 
-        string photoPath;
+        string photoPath; //absolute path of photo to pass binary to cloud
 
         public Java.IO.File createImageFile()
         {
@@ -135,13 +135,13 @@ namespace TOH19
             //    Toast.MakeText(Application.Context, photoPath.ToString(), ToastLength.Short).Show();
             //}
 
-            System.Threading.Thread.Sleep(3000);
+            System.Threading.Thread.Sleep(3000); //to deal with race condition of photo & call
 
             System.Diagnostics.Debug.WriteLine(photoPath.ToString());
-            ReadHandwrittenText(photoPath.ToString());
+            ReadHandwrittenText(photoPath.ToString()); 
         }
 
-        /*static */async Task ReadHandwrittenText(string imageFilePath)
+        /*static */async Task ReadHandwrittenText(string imageFilePath) //call to azure
         {
             try
             {
@@ -179,7 +179,7 @@ namespace TOH19
 
                     // The first REST API method, Batch Read, starts
                     // the async process to analyze the written text in the image.
-                    response = await client.PostAsync(uri, content);
+                    response = await client.PostAsync(uri, content); //json call
                 }
 
                 // The response header for the Batch Read method contains the URI
@@ -352,7 +352,7 @@ namespace TOH19
             //((Activity)Forms.Context).StartActivity(intent);
         }
 
-        public long GetDateTimeMS(int yr, int month, int day, int hr, int min)
+        public long GetDateTimeMS(int yr, int month, int day, int hr, int min) //gets unix time to use in Calendar creator
         {
             Calendar c = Calendar.GetInstance(Java.Util.TimeZone.Default);
 
@@ -413,7 +413,7 @@ namespace TOH19
             Android.Views.View view = (Android.Views.View) sender;
             //Snackbar.Make(view, "Replace with your own action", Snackbar.LengthLong)
             //    .SetAction("Action", (Android.Views.View.IOnClickListener)null).Show();
-            lookCameraIntent();
+            lookCameraIntent(); //opens camera to take a photo when button is clicked
         }
         public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] Android.Content.PM.Permission[] grantResults)
         {
