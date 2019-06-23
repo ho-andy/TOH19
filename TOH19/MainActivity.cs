@@ -45,13 +45,15 @@ namespace TOH19
             SetContentView(Resource.Layout.activity_main);
 
 
-            //Android.Support.V7.Widget.Toolbar toolbar = FindViewById<Android.Support.V7.Widget.Toolbar>(Resource.Id.toolbar);
-            //SetSupportActionBar(toolbar);
+            Android.Support.V7.Widget.Toolbar toolbar = FindViewById<Android.Support.V7.Widget.Toolbar>(Resource.Id.my_toolbar);
+            SetSupportActionBar(toolbar);
+            toolbar.SetTitleTextColor(Android.Graphics.Color.Rgb(255, 255, 255)); 
+
 
             calOutput = FindViewById<TextView>(Resource.Id.consoleView);
 
-
-
+            calOutput.Text = "Click the camera button below to get started!";
+            
 
 
 
@@ -72,7 +74,7 @@ namespace TOH19
             }
 
         }
-        
+
         public void lookCameraIntent()
         {
             Android.Net.Uri photoURI;
@@ -284,7 +286,7 @@ namespace TOH19
                         if (box[k].Item2 > (tuple.Item2 + 10) && (box[k].Item3 > tuple.Item3 || tuple.Item3 < box[k].Item3 + 9))
                         {
                             //Console.WriteLine(ind + " " + box[k].Item2 + " " + tuple.Item2);   
-                            calendar.Add(Tuple.Create(box[k - 1 - 7].Item1, tuple.Item1));
+                            calendar.Add(Tuple.Create(box[k - 1 /* - 7*/].Item1, tuple.Item1));
                             break;
                         }
                         if (k == box.Count - 1)
@@ -294,6 +296,7 @@ namespace TOH19
 
                     }
                 }
+                calOutput.Text = "";
                 foreach (var test in calendar)
                 {
                     System.Console.WriteLine(test);
@@ -319,7 +322,7 @@ namespace TOH19
             ContentValues eventValues = new ContentValues();
 
             eventValues.Put(CalendarContract.Events.InterfaceConsts.CalendarId, "1");
-            eventValues.Put(CalendarContract.Events.InterfaceConsts.Title, "New calendarEvent by Team B");
+            eventValues.Put(CalendarContract.Events.InterfaceConsts.Title, "Your AutoCal event");
             eventValues.Put(CalendarContract.Events.InterfaceConsts.Description, desc);
             eventValues.Put(CalendarContract.Events.InterfaceConsts.Dtstart, GetDateTimeMS(year, month, day, 00, 0));
             eventValues.Put(CalendarContract.Events.InterfaceConsts.Dtend, GetDateTimeMS(year, month, day, 23, 59));
