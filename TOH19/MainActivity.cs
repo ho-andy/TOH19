@@ -33,7 +33,7 @@ namespace TOH19
         const int REQUEST_TAKE_PHOTO = 1;
         const string subscriptionKey = "";
         const string uriBase =
-            "https://eastus2.api.cognitive.microsoft.com/vision/v2.0/read/core/asyncBatchAnalyze";z
+            "https://eastus2.api.cognitive.microsoft.com/vision/v2.0/read/core/asyncBatchAnalyze";
         static TextView calOutput;
         
         
